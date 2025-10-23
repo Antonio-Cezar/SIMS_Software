@@ -1,7 +1,7 @@
 # Smart Inventory Management System (SIMS)
 
 A modern, AI-powered inventory management solution for small and medium-sized businesses.  
-It provides full visibility into products, stock levels, purchase/sales orders, and automated alerts — with predictive demand forecasting.
+It provides full visibility into products, stock levels, purchase/sales orders, and automated alerts.
 
 ---
 
