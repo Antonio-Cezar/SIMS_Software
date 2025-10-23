@@ -16,7 +16,7 @@ It provides full visibility into products, stock levels, purchase/sales orders, 
 
 ---
 
-## 🧠 Key Features
+## Key Features
 
 - 🔹 Full CRUD for **products, suppliers, and orders**  
 - 🔹 Interactive **dashboard** with KPIs and charts (Recharts)  
