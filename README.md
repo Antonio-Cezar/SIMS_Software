@@ -27,15 +27,15 @@ It provides full visibility into products, stock levels, purchase/sales orders, 
 - 🔹 Ready for **Azure deployment**  
 
 ---
-## Project Testing run (vs code terminal)
-Kjør som før fra SmartInventory.Api/
+## Project testing run on WEB (vs code terminal)
+Run from SmartInventory.Api/
 
 ```bash
 dotnet run
 ```
 ---
 
-Kjør som før fra frontend/ :
+Run from frontend/ :
 
 ```bash
 npx http-server -p 8080
@@ -46,9 +46,28 @@ npx http-server -p 8080
 
 ```bash
 /SIMS_SOFTWARE
-  ├── api/            # ASP.NET Core API (C#)
-  ├── ml/             # FastAPI (Python) for forecasting
-  ├── web/            # Next.js (React + TypeScript) frontend
-  ├── docker-compose.yml
-  └── README.md
+  ├── SIMS_MVP/
+  │   ├── frontend/                # Frontend (HTML, CSS, JavaScript)
+  │   │   ├── index.html
+  │   │   ├── script.js
+  │   │   ├── styles.css
+  │   │   └── images/
+  │   ├── python/                 # Python scripts or experiments
+  │   └── SmartInventory.Api/     # ASP.NET Core Web API (C# backend)
+  │       ├── bin/
+  │       ├── Data/               # Database context and seed data
+  │       ├── Migrations/
+  │       ├── Models/             # Data models and entities
+  │       ├── obj/
+  │       ├── Properties/
+  │       ├── appsettings.json    # Main application settings
+  │       ├── appsettings.Development.json # Dev-specific settings
+  │       ├── inventory.db*       # SQLite database files
+  │       ├── Program.cs          # Application entry point
+  │       ├── SmartInventory.Api.csproj # C# project file
+  │       └── SmartInventory.Api.http
+  ├── README.md
+  └── SIMS_Software.sln           # Visual Studio solution file
+
+
 ```
