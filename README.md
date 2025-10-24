@@ -1,7 +1,7 @@
 # Smart Inventory Management System (SIMS)
 
-A modern, AI-powered inventory management solution for small and medium-sized businesses.  
-It provides full visibility into products, stock levels, purchase/sales orders, and automated alerts.
+A modern, modular inventory management system for small and medium-sized businesses.  
+Currently under development — providing product management, inventory tracking, and usage reports.
 
 ---
 
@@ -9,22 +9,25 @@ It provides full visibility into products, stock levels, purchase/sales orders, 
 
 | Layer | Technology | Description |
 |-------|-------------|-------------|
-| **Frontend (UI)** | [Next.js (React + TypeScript)](https://nextjs.org/) + [shadcn/ui](https://ui.shadcn.com) + [TailwindCSS](https://tailwindcss.com) + [Framer Motion](https://www.framer.com/motion/) | Sleek, responsive web UI with dashboard design, animations, and theming. |
-| **Backend (API)** | [ASP.NET Core 9](https://dotnet.microsoft.com/apps/aspnet) + [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) + [PostgreSQL](https://www.postgresql.org/) | REST API for products, inventory, orders, and notifications. |
-| **Machine Learning (ML)** | [Python FastAPI](https://fastapi.tiangolo.com/) + [scikit-learn](https://scikit-learn.org/stable/) | Predictive demand forecasting and smart reorder recommendations. |
-| **CI/CD & Deployment** | [Docker Compose](https://docs.docker.com/compose/) + [Azure Web App for Containers](https://azure.microsoft.com/en-us/services/app-service/containers/) + GitHub Actions | Containerized environment for development, testing, and cloud deployment. |
+| **Frontend (UI)** | HTML + CSS + JavaScript | Simple and responsive interface for viewing dashboard, products, orders, and reports. |
+| **Backend (API)** | [ASP.NET Core 9](https://dotnet.microsoft.com/apps/aspnet) + [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) + [SQLite](https://www.sqlite.org/) | REST API handling users, inventory, and order data. |
+| **Authentication** | Custom JWT-based authentication | Lightweight login system without full Identity. |
+| **Future ML Integration** | Python (FastAPI + scikit-learn) *(planned)* | Will power demand forecasting and automated reordering. |
+| **Deployment** | [Docker Compose](https://docs.docker.com/compose/) *(planned)* | Containerized setup for local and future cloud deployment. |
 
 ---
 
-## Key Features
+## Key Features (Current Phase)
 
-- 🔹 Full CRUD for **products, suppliers, and orders**  
-- 🔹 Interactive **dashboard** with KPIs and charts (Recharts)  
-- 🔹 **Low-stock alerts** via email or webhooks  
-- 🔹 **Machine learning module** (Python) for demand forecasting  
-- 🔹 **Authentication & role-based access** (Admin, Manager, Clerk)  
-- 🔹 **CI/CD pipeline** with GitHub Actions  
-- 🔹 Ready for **Azure deployment**  
+- ✅ **User login & JWT authentication**
+- ✅ **Dashboard view** (store info & basic statistics)
+- ✅ **Product management** (view current stock)
+- ✅ **Orders view** (shows what to order for next week)
+- ✅ **Reports tab** (weekly/monthly usage overview)
+- 🔄 **SQLite database integration**
+- 🚧 **AI forecasting** *(coming soon)*
+
+---
 
 ---
 ## Project testing run on WEB (vs code terminal)
@@ -73,5 +76,9 @@ npx http-server -p 8080
 ## Project Updates
 
 ![Layout](/SIMS_MVP/images/Layout%20mock.jpg)
+
+---
+
+![First look](/SIMS_MVP/images/updates%201.jpg.jpg)
 
 ---

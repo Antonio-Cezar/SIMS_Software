@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartInventory.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8930159cb6cb4b005b6a6584daa7505d4984f979")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78654f21295c598a13519ef6879375d8b5ab2ed4")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartInventory.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartInventory.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
