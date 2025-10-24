@@ -30,14 +30,16 @@ It provides full visibility into products, stock levels, purchase/sales orders, 
 ## Project Testing run (vs code terminal)
 Kjør som før fra SmartInventory.Api/
 
+```bash
 dotnet run
-
+```
 ---
 
 Kjør som før fra frontend/ :
 
+```bash
 npx http-server -p 8080
-
+```
 ---
 
 ## Project Structure
@@ -49,3 +51,4 @@ npx http-server -p 8080
   ├── web/            # Next.js (React + TypeScript) frontend
   ├── docker-compose.yml
   └── README.md
+```
