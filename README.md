@@ -85,6 +85,6 @@ npx http-server -p 8080
 
 ---
 
-![First look](/SIMS_MVP/images/updates%201.jpg.jpg)
+![First look](/SIMS_MVP/images/updates%201.jpg)
 
 ---
