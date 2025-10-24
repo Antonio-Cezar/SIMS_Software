@@ -47,27 +47,25 @@ npx http-server -p 8080
 ```bash
 /SIMS_SOFTWARE
   ├── SIMS_MVP/
-  │   ├── frontend/                # Frontend (HTML, CSS, JavaScript)
+  │   ├── frontend/                         # Frontend (HTML, CSS, JavaScript)
   │   │   ├── index.html
   │   │   ├── script.js
   │   │   ├── styles.css
   │   │   └── images/
-  │   ├── python/                 # Python scripts or experiments
-  │   └── SmartInventory.Api/     # ASP.NET Core Web API (C# backend)
+  │   ├── python/                           # Python scripts or experiments
+  │   └── SmartInventory.Api/               # ASP.NET Core Web API (C# backend)
   │       ├── bin/
-  │       ├── Data/               # Database context and seed data
+  │       ├── Data/                         # Database context and seed data
   │       ├── Migrations/
-  │       ├── Models/             # Data models and entities
+  │       ├── Models/                       # Data models and entities
   │       ├── obj/
   │       ├── Properties/
-  │       ├── appsettings.json    # Main application settings
-  │       ├── appsettings.Development.json # Dev-specific settings
-  │       ├── inventory.db*       # SQLite database files
-  │       ├── Program.cs          # Application entry point
-  │       ├── SmartInventory.Api.csproj # C# project file
+  │       ├── appsettings.json              # Main application settings
+  │       ├── appsettings.Development.json  # Dev-specific settings
+  │       ├── inventory.db*                 # SQLite database files
+  │       ├── Program.cs                    # Application entry point
+  │       ├── SmartInventory.Api.csproj     # C# project file
   │       └── SmartInventory.Api.http
   ├── README.md
-  └── SIMS_Software.sln           # Visual Studio solution file
-
-
+  └── SIMS_Software.sln                     # Visual Studio solution file
 ```
