@@ -4,16 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Smart Inventory – MVP</title>
-  <style>
-    body { font-family: system-ui, Arial, sans-serif; margin: 2rem; max-width: 700px; }
-    h1 { margin-bottom: 0.5rem; }
-    form, .card { border: 1px solid #ddd; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
-    input { padding: 0.5rem; margin-right: 0.5rem; }
-    button { padding: 0.6rem 1rem; border-radius: 10px; border: 0; background: #333; color: #fff; cursor: pointer; }
-    .row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 0.5rem; border-bottom: 1px solid #eee; text-align: left; }
-  </style>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <h1>Smart Inventory – MVP</h1>
@@ -33,73 +24,13 @@
   <div class="card">
     <h3>Varer</h3>
     <table>
-      <thead><tr><th>ID</th><th>SKU</th><th>Navn</th><th>Antall</th><th></th></tr></thead>
+      <thead>
+        <tr><th>ID</th><th>SKU</th><th>Navn</th><th>Antall</th><th></th></tr>
+      </thead>
       <tbody id="itemsBody"></tbody>
     </table>
   </div>
 
-  <script>
-    const API = "http://localhost:5292"; // bytt port hvis API’et ditt viser en annen
-
-    async function loadItems() {
-      const res = await fetch(API + "/api/items");
-      const data = await res.json();
-      const body = document.getElementById("itemsBody");
-      body.innerHTML = "";
-      data.forEach(i => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${i.id}</td>
-          <td><input value="${i.sku}" data-id="${i.id}" data-field="sku"/></td>
-          <td><input value="${i.name}" data-id="${i.id}" data-field="name"/></td>
-          <td><input type="number" value="${i.quantity}" data-id="${i.id}" data-field="quantity"/></td>
-          <td>
-            <button onclick="save(${i.id})">Lagre</button>
-            <button onclick="removeItem(${i.id})">Slett</button>
-          </td>`;
-        body.appendChild(tr);
-      });
-    }
-
-    async function save(id) {
-      const rowInputs = [...document.querySelectorAll(`input[data-id="${id}"]`)];
-      const payload = { sku:"", name:"", quantity:0 };
-      rowInputs.forEach(inp => payload[inp.dataset.field] = inp.type==="number" ? Number(inp.value) : inp.value);
-      const res = await fetch(API + "/api/items/" + id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) alert("Kunne ikke lagre");
-      await loadItems();
-    }
-
-    async function removeItem(id) {
-      if (!confirm("Slette varen?")) return;
-      await fetch(API + "/api/items/" + id, { method: "DELETE" });
-      await loadItems();
-    }
-
-    document.getElementById("createForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const sku = document.getElementById("sku").value.trim();
-      const name = document.getElementById("name").value.trim();
-      const qty = Number(document.getElementById("qty").value || 0);
-      const res = await fetch(API + "/api/items", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sku, name, quantity: qty })
-      });
-      if (!res.ok) {
-        const t = await res.text();
-        alert("Feil: " + t);
-        return;
-      }
-      e.target.reset();
-      await loadItems();
-    });
-
-    loadItems();
-  </script>
+  <script src="./script.js" defer></script>
 </body>
 </html>

@@ -27,6 +27,18 @@ It provides full visibility into products, stock levels, purchase/sales orders, 
 - 🔹 Ready for **Azure deployment**  
 
 ---
+## Project Testing run (vs code terminal)
+Kjør som før fra SmartInventory.Api/
+
+dotnet run
+
+---
+
+Kjør som før fra frontend/ :
+
+npx http-server -p 8080
+
+---
 
 ## Project Structure
 
