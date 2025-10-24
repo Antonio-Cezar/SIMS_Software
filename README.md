@@ -69,3 +69,5 @@ npx http-server -p 8080
   ├── README.md
   └── SIMS_Software.sln                     # Visual Studio solution file
 ```
+
+[Layout](/SIMS_MVP/images/Layout%20mock.jpg)

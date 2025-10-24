@@ -155,3 +155,11 @@ E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\obj\Debug\net9.
 E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\obj\Debug\net9.0\SmartInventory.Api.pdb
 E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\obj\Debug\net9.0\SmartInventory.Api.genruntimeconfig.cache
 E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\obj\Debug\net9.0\ref\SmartInventory.Api.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+E:\3.Projects - GitHub\SIMS_Software\SIMS_MVP\SmartInventory.Api\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
