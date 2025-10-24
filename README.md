@@ -34,6 +34,7 @@ Currently under development — providing product management, inventory tracking
 Run from SmartInventory.Api/
 
 ```bash
+dotnet build
 dotnet run
 ```
 ---
@@ -50,25 +51,30 @@ npx http-server -p 8080
 ```bash
 /SIMS_SOFTWARE
   ├── SIMS_MVP/
-  │   ├── frontend/                         # Frontend (HTML, CSS, JavaScript)
-  │   │   ├── index.html
-  │   │   ├── script.js
-  │   │   ├── styles.css
-  │   │   └── images/
-  │   ├── python/                           # Python scripts or experiments
+  │   ├── frontend/                         # Frontend (HTML, CSS, JS)
+  │   │   ├── index.html                    # Dashboard + login page
+  │   │   ├── inventory.html                # Inventory / products in stock
+  │   │   ├── orders.html                   # Orders and upcoming restocks
+  │   │   ├── reports.html                  # Weekly/monthly usage reports
+  │   │   ├── js/                           # Extra JS modules (under development)
+  │   │   ├── script.js                     # Main frontend logic (API requests)
+  │   │   ├── styles.css                    # Global styling
+  │   │   └── images/                       # UI images and icons
+  │   ├── python/                           # (Planned) machine learning module
   │   └── SmartInventory.Api/               # ASP.NET Core Web API (C# backend)
   │       ├── bin/
   │       ├── Data/                         # Database context and seed data
-  │       ├── Migrations/
-  │       ├── Models/                       # Data models and entities
+  │       ├── Dtos/                         # Data transfer objects
+  │       ├── Migrations/                   # EF Core migrations
+  │       ├── Models/                       # Entity models
   │       ├── obj/
   │       ├── Properties/
-  │       ├── appsettings.json              # Main application settings
-  │       ├── appsettings.Development.json  # Dev-specific settings
-  │       ├── inventory.db*                 # SQLite database files
+  │       ├── appsettings.Development.json  # Development configuration (SQLite)
+  │       ├── appsettings.json              # Main configuration file
+  │       ├── inventory.db                  # Local SQLite database
   │       ├── Program.cs                    # Application entry point
   │       ├── SmartInventory.Api.csproj     # C# project file
-  │       └── SmartInventory.Api.http
+  │       └── SmartInventory.Api.http       # HTTP request testing file
   ├── README.md
   └── SIMS_Software.sln                     # Visual Studio solution file
 ```
