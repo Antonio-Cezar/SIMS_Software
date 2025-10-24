@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SmartInventory.Api.Data;
 using SmartInventory.Api.Models;
+using SmartInventory.Api.Dtos;   // for LoginDto
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -125,19 +126,17 @@ using (var scope = app.Services.CreateScope())
 app.MapGet("/", () => "SmartInventory API is running");
 
 // ============== AUTH endpoints =================
-record LoginDto(string Email, string Password);
-
-// Keep this where your endpoints are
 app.MapPost("/api/auth/login", async (
     AppDbContext db,
     IPasswordHasher<AppUser> hasher,
-    LoginDto dto) =>
+    [FromBody] LoginDto dto) =>
 {
     var user = await db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
     if (user is null) return Results.Unauthorized();
 
     var result = hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
-    if (result == PasswordVerificationResult.Failed) return Results.Unauthorized();
+    if (result == PasswordVerificationResult.Failed)
+        return Results.Unauthorized();
 
     var claims = new[]
     {
@@ -148,7 +147,7 @@ app.MapPost("/api/auth/login", async (
         new Claim("name", user.Name)
     };
 
-    var minutes = int.TryParse(jwt["ExpiresMinutes"], out var m) ? m : 480;
+    var minutes = int.TryParse(jwt["ExpiresMinutes"], out var m) ? m : 480; // default 8h
     var token = new JwtSecurityToken(
         issuer: jwt["Issuer"],
         audience: jwt["Audience"],
@@ -161,8 +160,6 @@ app.MapPost("/api/auth/login", async (
     return Results.Ok(new { token = tokenString, user = new { user.Id, user.Email, user.Name } });
 });
 
-
-
 app.MapGet("/api/auth/me", [Authorize] (ClaimsPrincipal user) =>
 {
     var id = user.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -174,7 +171,6 @@ app.MapGet("/api/auth/me", [Authorize] (ClaimsPrincipal user) =>
 
 
 // ============== Item endpoints =================
-// NOTE: These require Authorization now.
 app.MapGet("/api/items", [Authorize] async (AppDbContext db) =>
     await db.Items.OrderBy(i => i.Id).ToListAsync());
 
