@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Inventory · Smart Inventory</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">SI</div><div class="brand-name">Smart Inventory</div></div>
+      <nav class="nav">
+        <a href="index.html"><span class="ico">🏠</span>Dashboard</a>
+        <a href="inventory.html"><span class="ico">📦</span>Inventory</a>
+        <a href="orders.html"><span class="ico">🧾</span>Orders</a>
+        <a href="reports.html"><span class="ico">📊</span>Reports</a>
+      </nav>
+      <div class="sidebar-footer"><a class="link-ghost" href="#">Log out</a></div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header"><h1>Inventory</h1></header>
+
+      <div class="grid-1-1">
+        <div class="card-sub">
+          <div class="metric"><div class="metric-title">In Stock</div><div class="metric-value" id="metricInStock">0</div></div>
+        </div>
+        <div class="card-sub">
+          <div class="metric"><div class="metric-title">Low on stock</div><div class="metric-value" id="metricLowStock">0</div></div>
+        </div>
+      </div>
+
+      <div class="card mt-m">
+        <h3 class="mb-s">Add / Update</h3>
+        <form id="createForm" class="row wrap">
+          <input id="sku" class="input" placeholder="SKU" required>
+          <input id="name" class="input" placeholder="Name" required>
+          <input id="qty" class="input" type="number" placeholder="Quantity" value="0">
+          <select id="category" class="input">
+            <option value="">Category</option><option>Food</option><option>Drinks</option><option>Electronics</option><option>Other</option>
+          </select>
+          <button class="btn primary">Add/Update</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="table-head">
+          <div class="table-title">Products</div>
+          <input id="search" class="input sm" placeholder="Search products">
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>ID</th><th>Product</th><th>Stock</th><th>Category</th><th></th></tr></thead>
+            <tbody id="itemsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { API, setActiveNav, escapeHtml, setText } from './js/app.js';
+    setActiveNav();
+
+    const state = { items: [], filtered: [] };
+
+    async function loadItems(){
+      try{
+        const res = await fetch(API + '/api/items');
+        state.items = await res.json();
+        state.filtered = state.items;
+        render();
+        metrics();
+      }catch(e){ console.error(e); }
+    }
+    function metrics(){
+      const total = state.items.reduce((a,b)=>a+(+b.quantity||0),0);
+      const low = state.items.filter(x=>(+x.quantity||0)<5).length;
+      setText('metricInStock', total); setText('metricLowStock', low);
+    }
+    function render(){
+      const body = document.getElementById('itemsBody'); body.innerHTML = '';
+      state.filtered.forEach(i=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${i.id}</td>
+          <td><input class="input sm" value="${escapeHtml(i.name||'')}" data-id="${i.id}" data-field="name"></td>
+          <td><input class="input sm" type="number" value="${+i.quantity||0}" data-id="${i.id}" data-field="quantity" style="width:90px"></td>
+          <td><input class="input sm" value="${escapeHtml(i.category||'')}" data-id="${i.id}" data-field="category"></td>
+          <td class="row">
+            <button class="btn" data-action="save" data-id="${i.id}">Save</button>
+            <button class="btn danger" data-action="del" data-id="${i.id}">Delete</button>
+          </td>`;
+        body.appendChild(tr);
+      });
+    }
+    document.getElementById('itemsBody').addEventListener('click', async e=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const id = +btn.dataset.id;
+      if(btn.dataset.action==='save'){
+        const inputs = [...document.querySelectorAll(`input[data-id="${id}"]`)];
+        const payload = { sku:'', name:'', quantity:0, category:'' };
+        inputs.forEach(inp=>payload[inp.dataset.field]=inp.type==='number'?Number(inp.value):inp.value);
+        const res = await fetch(API + '/api/items/'+id, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+        if(!res.ok) alert('Could not save');
+        await loadItems();
+      }else if(btn.dataset.action==='del'){
+        if(!confirm('Delete this item?')) return;
+        await fetch(API + '/api/items/'+id, { method:'DELETE' });
+        await loadItems();
+      }
+    });
+
+    document.getElementById('createForm').addEventListener('submit', async e=>{
+      e.preventDefault();
+      const sku = document.getElementById('sku').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const qty = Number(document.getElementById('qty').value||0);
+      const category = document.getElementById('category').value.trim();
+      const res = await fetch(API + '/api/items', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({sku,name,quantity:qty,category}) });
+      if(!res.ok){ alert(await res.text() || 'Error'); return; }
+      e.target.reset(); await loadItems();
+    });
+
+    document.getElementById('search').addEventListener('input', e=>{
+      const q = e.target.value.toLowerCase();
+      state.filtered = state.items.filter(i => (i.name||'').toLowerCase().includes(q) || (i.sku||'').toLowerCase().includes(q));
+      render();
+    });
+
+    loadItems();
+  </script>
+</body>
+</html>

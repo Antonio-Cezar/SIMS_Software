@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Orders · Smart Inventory</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">SI</div><div class="brand-name">Smart Inventory</div></div>
+      <nav class="nav">
+        <a href="index.html"><span class="ico">🏠</span>Dashboard</a>
+        <a href="inventory.html"><span class="ico">📦</span>Inventory</a>
+        <a href="orders.html"><span class="ico">🧾</span>Orders</a>
+        <a href="reports.html"><span class="ico">📊</span>Reports</a>
+      </nav>
+      <div class="sidebar-footer"><a class="link-ghost" href="#">Log out</a></div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header"><h1>Orders</h1></header>
+
+      <div class="card">
+        <div class="table-head">
+          <div class="table-title">NOT WORKING -> Suggested Reorders (mock example)</div>
+          <div class="row"><select class="input sm"><option>Next Week</option><option>Next 2 Weeks</option><option>Next Month</option></select><input class="input sm" placeholder="Search..."></div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>Product</th><th>Supplier</th><th>Quantity</th><th>ETA</th><th></th></tr></thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { setActiveNav } from './js/app.js';
+    setActiveNav();
+    const seed = [
+      { product:'Product A', supplier:'Supplier X', qty:50, eta:'Approve' },
+      { product:'Product B', supplier:'Supplier Y', qty:30, eta:'Skip' },
+      { product:'Product C', supplier:'Supplier Z', qty:20, eta:'Approve' },
+      { product:'Product D', supplier:'Supplier X', qty:40, eta:'Approve' },
+      { product:'Product E', supplier:'Supplier Y', qty:25, eta:'Approve' },
+    ];
+    const body = document.getElementById('ordersBody');
+    seed.forEach(o=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${o.product}</td><td>${o.supplier}</td><td>${o.qty}</td>
+        <td><div class="row"><button class="btn ${o.eta==='Approve'?'primary':''}">${o.eta}</button><button class="btn">▾</button></div></td>
+        <td class="right"><button class="btn success">Create PO</button></td>`;
+      body.appendChild(tr);
+    });
+  </script>
+</body>
+</html>

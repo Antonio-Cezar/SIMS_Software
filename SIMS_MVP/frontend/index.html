@@ -1,36 +1,107 @@
 <!doctype html>
-<html lang="no">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smart Inventory – MVP</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard · Smart Inventory</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Smart Inventory – MVP</h1>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">SI</div><div class="brand-name">Smart Inventory</div></div>
+      <nav class="nav">
+        <a href="index.html"><span class="ico">🏠</span>Dashboard</a>
+        <a href="inventory.html"><span class="ico">📦</span>Inventory</a>
+        <a href="orders.html"><span class="ico">🧾</span>Orders</a>
+        <a href="reports.html"><span class="ico">📊</span>Reports</a>
+      </nav>
+      <div class="sidebar-footer"><a class="link-ghost" href="#">Log out</a></div>
+    </aside>
 
-  <div class="card">
-    <h3>Legg til vare</h3>
-    <form id="createForm">
-      <div class="row">
-        <input id="sku" placeholder="SKU" required />
-        <input id="name" placeholder="Navn" required />
-        <input id="qty" type="number" placeholder="Antall" value="0" />
-        <button>Opprett</button>
+    <main class="main">
+      <header class="page-header">
+        <h1>Dashboard</h1>
+        <div class="search-wrap"><input class="input" placeholder="Search..."></div>
+      </header>
+
+      <!-- Sign in -->
+      <div id="signinWrap" class="grid-2-1">
+        <div class="card">
+          <h2>Sign in to your account</h2>
+          <form id="signinForm" class="stack">
+            <label class="stack"><span class="label">Email</span><input id="loginEmail" class="input" type="email" required></label>
+            <label class="stack"><span class="label">Password</span><input id="loginPassword" class="input" type="password" required><a class="muted small" href="#">Forgot password?</a></label>
+            <button class="btn primary">Sign in</button>
+            <div class="muted small">Don’t have an account? <a href="#">Sign up</a></div>
+          </form>
+        </div>
+        <div class="stack">
+          <div class="card h-100">
+            <div class="kpi">
+              <div class="kpi-item"><div class="kpi-title">Total Products</div><div class="kpi-value" id="kpiProducts">0</div></div>
+              <div class="kpi-item"><div class="kpi-title">Total Orders</div><div class="kpi-value accent" id="kpiOrders">45</div></div>
+            </div>
+            <div class="chart-wrap"><div class="card-title">Sales Analysis</div><svg id="salesChart" viewBox="0 0 600 220" class="chart"></svg></div>
+          </div>
+        </div>
       </div>
-    </form>
+
+      <!-- Signed in -->
+      <div id="welcomeWrap" class="grid-2-1" style="display:none">
+        <div class="card">
+          <h2 class="mb-s">Welcome, <span id="companyName">Company</span></h2>
+          <div class="grid-1-1">
+            <label class="stack"><span class="label">Company name</span><input id="companyNameInput" class="input" value="Company"></label>
+            <label class="stack"><span class="label">Company email</span><input id="companyEmailInput" class="input" type="email" value="you@company.com"></label>
+          </div>
+          <div class="grid-1-1 mt-m">
+            <div class="card-sub"><div class="metric"><div class="metric-title">Revenue</div><div class="metric-row"><div class="metric-value">$12,340</div><div class="pill up">↑ 20.5%</div></div></div></div>
+            <div class="card-sub"><div class="metric"><div class="metric-title">Low Stock Items</div><div class="metric-row"><div class="metric-value" id="lowStockCount">0</div></div></div></div>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card h-100">
+            <div class="kpi">
+              <div class="kpi-item"><div class="kpi-title">Total Products</div><div class="kpi-value" id="kpiProducts2">0</div></div>
+              <div class="kpi-item"><div class="kpi-title">Total Orders</div><div class="kpi-value accent" id="kpiOrders2">45</div></div>
+            </div>
+            <div class="chart-wrap"><div class="card-title">Sales Analysis</div><svg id="salesChart2" viewBox="0 0 600 220" class="chart"></svg></div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
-  <div class="card">
-    <h3>Varer</h3>
-    <table>
-      <thead>
-        <tr><th>ID</th><th>SKU</th><th>Navn</th><th>Antall</th><th></th></tr>
-      </thead>
-      <tbody id="itemsBody"></tbody>
-    </table>
-  </div>
+  <script type="module">
+    import { setActiveNav, renderSparkline, API, setText } from './js/app.js';
+    setActiveNav();
+    const signinForm = document.getElementById('signinForm');
+    const signinWrap = document.getElementById('signinWrap');
+    const welcomeWrap = document.getElementById('welcomeWrap');
 
-  <script src="./script.js" defer></script>
+    // mock sign-in
+    signinForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = (document.getElementById('loginEmail').value||'Company').split('@')[0];
+      document.getElementById('companyName').textContent = name;
+      signinWrap.style.display = 'none';
+      welcomeWrap.style.display = '';
+    });
+
+    // load KPIs from items
+    async function loadKPIs(){
+      try{
+        const res = await fetch(API + '/api/items');
+        const items = await res.json();
+        setText('kpiProducts', items.length);
+        setText('kpiProducts2', items.length);
+        const low = items.filter(x => (Number(x.quantity)||0) < 5).length;
+        setText('lowStockCount', low);
+      }catch{}
+    }
+    loadKPIs();
+    renderSparkline('salesChart'); renderSparkline('salesChart2');
+  </script>
 </body>
 </html>
