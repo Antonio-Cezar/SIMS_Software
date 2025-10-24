@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -126,10 +127,11 @@ app.MapGet("/", () => "SmartInventory API is running");
 // ============== AUTH endpoints =================
 record LoginDto(string Email, string Password);
 
-app.MapPost("/api/auth/login",
-    async ([FromServices] AppDbContext db,
-           [FromServices] IPasswordHasher<AppUser> hasher,
-           [FromBody] LoginDto dto) =>
+// Keep this where your endpoints are
+app.MapPost("/api/auth/login", async (
+    AppDbContext db,
+    IPasswordHasher<AppUser> hasher,
+    LoginDto dto) =>
 {
     var user = await db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
     if (user is null) return Results.Unauthorized();
@@ -156,12 +158,9 @@ app.MapPost("/api/auth/login",
     );
 
     var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-    return Results.Ok(new
-    {
-        token = tokenString,
-        user = new { user.Id, user.Email, user.Name }
-    });
+    return Results.Ok(new { token = tokenString, user = new { user.Id, user.Email, user.Name } });
 });
+
 
 
 app.MapGet("/api/auth/me", [Authorize] (ClaimsPrincipal user) =>

@@ -70,4 +70,8 @@ npx http-server -p 8080
   └── SIMS_Software.sln                     # Visual Studio solution file
 ```
 
-[Layout](/SIMS_MVP/images/Layout%20mock.jpg)
+## Project Updates
+
+![Layout](/SIMS_MVP/images/Layout%20mock.jpg)
+
+---
