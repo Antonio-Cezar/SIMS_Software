@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\3.Projects - GitHub\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj": {}
+    "C:\\Users\\anton\\Documents\\GitHub_projects\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj": {}
   },
   "projects": {
-    "E:\\3.Projects - GitHub\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj": {
+    "C:\\Users\\anton\\Documents\\GitHub_projects\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\3.Projects - GitHub\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj",
+        "projectUniqueName": "C:\\Users\\anton\\Documents\\GitHub_projects\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj",
         "projectName": "SmartInventory.Api",
-        "projectPath": "E:\\3.Projects - GitHub\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj",
+        "projectPath": "C:\\Users\\anton\\Documents\\GitHub_projects\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\SmartInventory.Api.csproj",
         "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-        "outputPath": "E:\\3.Projects - GitHub\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\obj\\",
+        "outputPath": "C:\\Users\\anton\\Documents\\GitHub_projects\\SIMS_Software\\SIMS_MVP\\SmartInventory.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config"
