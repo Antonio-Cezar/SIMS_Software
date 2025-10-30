@@ -1,3 +1,5 @@
+*Under developing*
+
 # Smart Inventory Management System (SIMS)
 
 A modern, modular inventory management system for small and medium-sized businesses.  
